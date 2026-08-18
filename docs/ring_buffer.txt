@@ -1,0 +1,15 @@
+The following is the design specificities of the Ring Buffer:
+
+A struct that contains:
+
+- Pointer/reference to caller-provided byte array
+- capacity: total available slots
+- read: location of next byte to move
+- write: location where next byte will be inserted
+- count: number of bytes currently stored
+
+With operations:
+- init: initializes structure, basically constructor but not
+- push: inserts one byte and reports failure if overflow
+- pull: removes one byte and reports failure if underflow
+- is_empty, is_full, size, reset
