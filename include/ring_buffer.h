@@ -1,5 +1,5 @@
-#ifndef RING_BUFFER
-#define RING_BUFFER
+#ifndef RING_BUFFER_H
+#define RING_BUFFER_H
 #include <stdint.h>
 typedef struct{
     uint8_t* byte_array;
@@ -18,8 +18,5 @@ _Bool is_empty(const RingBuffer* ring_buffer);
 _Bool is_full(const RingBuffer* ring_buffer);
 uint32_t size(const RingBuffer* ring_buffer);
 void reset(RingBuffer* ring_buffer);
-
-
-
 
 #endif
