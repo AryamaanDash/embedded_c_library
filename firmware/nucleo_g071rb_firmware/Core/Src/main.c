@@ -21,6 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "button.h"
 
 /* USER CODE END Includes */
 
@@ -43,6 +44,18 @@
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
+static Button user_button;
+static ButtonEvent user_button_event;
+
+static const GpioPin user_button_pin = {
+  .port = USER_BUTTON_GPIO_Port,
+  .pin = USER_BUTTON_Pin
+};
+
+static const GpioPin user_led_pin = {
+  .port = USER_LED_GPIO_Port,
+  .pin = USER_LED_Pin
+};
 
 /* USER CODE END PV */
 
@@ -90,6 +103,14 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+  if (!button_initialize(&user_button,
+                         user_button_pin,
+                         GPIO_DRIVER_LEVEL_LOW,
+                         25U,
+                         HAL_GetTick()))
+  {
+    Error_Handler();
+  }
 
   /* USER CODE END 2 */
 
@@ -100,6 +121,18 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    if (!button_update(&user_button, HAL_GetTick(), &user_button_event))
+    {
+      Error_Handler();
+    }
+
+    if (user_button_event == BUTTON_EVENT_PRESSED)
+    {
+      if (!gpio_toggle(user_led_pin))
+      {
+        Error_Handler();
+      }
+    }
   }
   /* USER CODE END 3 */
 }
