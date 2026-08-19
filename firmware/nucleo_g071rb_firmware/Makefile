@@ -59,6 +59,7 @@ Core/Src/sysmem.c \
 Core/Src/syscalls.c \
 ../../src/ring_buffer.c \
 ../../src/state_machine.c \
+../../src/button.c \
 ../../platform/stm32/gpio_stm32.c
 
 # ASM sources
