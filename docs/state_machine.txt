@@ -5,16 +5,18 @@ BLINKING
 
 EVENTS:
 BUTTON_PRESSED
-TIMER_EXPIRED
 RESET
 
-=========================================
-
-ACTIONS:
+TRANSITIONS:
 
 OFF - BUTTON_PRESSED - ON
-
 ON - BUTTON_PRESSED - BLINKING
 BLINKING - BUTTON_PRESSED - OFF
 
-ON, OFF, BLINKING - BUTTON_PRESSED - OFF
+EVENT_RESET can be used in the transition table like any other event. A reset
+can also be performed out of band by state_machine_reset(), which returns the
+machine to the initial state supplied to state_machine_initialize().
+
+Each state/event pair may appear at most once in a transition table. A table
+with duplicate pairs or invalid state/event values is rejected during
+initialization.
